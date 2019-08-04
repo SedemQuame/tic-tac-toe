@@ -59,7 +59,7 @@
    <center>
       <VBox prefHeight="380.0" prefWidth="600.0" BorderPane.alignment="CENTER">
          <children>
-            <Label fx:id="systemMsg" alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="400.0" text="System Message">
+            <Label fx:id="systemMsg" alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="400.0" text="Click To Start.">
                <VBox.margin>
                   <Insets bottom="5.0" left="100.0" right="100.0" />
                </VBox.margin>

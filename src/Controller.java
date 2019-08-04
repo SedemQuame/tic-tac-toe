@@ -3,11 +3,17 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import java.net.URL;
+
 import java.util.ResourceBundle;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class Controller extends Thread implements Initializable {
     private char [][] gameBoard = new char [3][3];
+    private String statusFlag = "";
 
     private int turn = 1;
 
@@ -65,6 +71,10 @@ public class Controller extends Thread implements Initializable {
                 this.setTurn();
             }
         }
+        if (!statusFlag.equals("win")){
+            playSound("src/sound_effects/money.wav");
+        }
+        statusFlag = "";
     }
 
     @Override
@@ -92,14 +102,12 @@ public class Controller extends Thread implements Initializable {
                 initializeGameBoard(gameBoard);
                 clearGameBoard();
                 systemMsg.setText("Game over");
+                playSound("src/sound_effects/bonus.wav");
+                pauseGame();
+                statusFlag = "win";
             }
         }else {systemMsg.setText("Player O's Turn To Play.\nInvalid Move.");}
         if(checkIfBoardIsFull()) {
-            /*RESTART GAME.
-            * 1.Record Draw.
-            * 2.Send message that game resulted in a draw.
-            * 3.Reset matrix game board and fxml game board.
-            * 4.*/
 //            Print Congratulatory Message.
             printCongratulatoryMessage("draw");
             initializeGameBoard(gameBoard);
@@ -235,11 +243,11 @@ public class Controller extends Thread implements Initializable {
 
     private void printCongratulatoryMessage(String condition){
         if (condition.equals("win")){
-            System.out.println("Congratulations you won. \uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C");
+            systemMsg.setText("Congratulations you won. \uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C");
         }else if (condition.equals("draw")){
-            System.out.println("You drew, try again.");
+            systemMsg.setText("You drew, try again.");
         }else{
-            System.out.println("You lost, try again.");
+            systemMsg.setText("You lost, try again.");
         }
     }
 
@@ -260,5 +268,19 @@ public class Controller extends Thread implements Initializable {
         }catch (InterruptedException ie){
             Thread.currentThread().interrupt();
         }
+    }
+
+    private void playSound(String pathToAudioFile){
+        File file = new File(pathToAudioFile);
+        URL url = null;
+        if (file.canRead()) {
+            try {
+                url = file.toURI().toURL();
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
+        }
+        AudioClip clip = Applet.newAudioClip(url);
+        clip.play();
     }
 }
