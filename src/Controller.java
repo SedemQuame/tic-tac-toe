@@ -3,13 +3,10 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.stream.IntStream;
 
-public class Controller implements Initializable {
-//    Creating game board.
+public class Controller extends Thread implements Initializable {
     private char [][] gameBoard = new char [3][3];
 
     private int turn = 1;
@@ -85,15 +82,18 @@ public class Controller implements Initializable {
         this.turn = this.turn + 1;
     }
 
-
     private void move(ActionEvent event, char move, char [][] gameBoard){
         Button btn  = (Button) event.getSource();
-
         if(btn.getText().equals("")) {
             writeMoveToGameBoard(btn, move, gameBoard);
-        }
-        else {systemMsg.setText("Player O's Turn To Play.\nInvalid Move.");}
-
+            //        displayGameBoardMatrix(gameBoard);
+            if (checkGameResult()){
+                updateScore();
+                initializeGameBoard(gameBoard);
+                clearGameBoard();
+                systemMsg.setText("Game over");
+            }
+        }else {systemMsg.setText("Player O's Turn To Play.\nInvalid Move.");}
         if(checkIfBoardIsFull()) {
             /*RESTART GAME.
             * 1.Record Draw.
@@ -102,9 +102,7 @@ public class Controller implements Initializable {
             * 4.*/
 //            Print Congratulatory Message.
             printCongratulatoryMessage("draw");
-
             initializeGameBoard(gameBoard);
-
 //            Clear Fxml Game Board.
             clearGameBoard();
         }
@@ -141,13 +139,6 @@ public class Controller implements Initializable {
             case ("button9"):
                 gameBoard[2][2] = move;
                 break;
-        }
-        displayGameBoardMatrix(gameBoard);
-        if (checkGameResult()){
-            updateScore();
-            initializeGameBoard(gameBoard);
-            clearGameBoard();
-            systemMsg.setText("Game over");
         }
     }
 
@@ -261,5 +252,13 @@ public class Controller implements Initializable {
             }
         }
         return true;
+    }
+
+    private void pauseGame(){
+        try {
+            Thread.sleep(1500);
+        }catch (InterruptedException ie){
+            Thread.currentThread().interrupt();
+        }
     }
 }
