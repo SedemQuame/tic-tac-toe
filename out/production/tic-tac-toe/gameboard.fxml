@@ -23,7 +23,7 @@
                   <Font name="Courier New" size="20.0" />
                </font>
             </Label>
-            <Label alignment="BASELINE_CENTER" layoutX="10.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="0">
+            <Label fx:id="playerXScore" alignment="BASELINE_CENTER" layoutX="10.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="0">
                <HBox.margin>
                   <Insets right="2.0" />
                </HBox.margin>
@@ -31,7 +31,7 @@
                   <Font name="System Bold" size="25.0" />
                </font>
             </Label>
-            <Label alignment="BASELINE_CENTER" layoutX="10.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="0">
+            <Label fx:id="playerYScore" alignment="BASELINE_CENTER" layoutX="10.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="40.0" prefWidth="100.0" text="0">
                <HBox.margin>
                   <Insets left="2.0" />
                </HBox.margin>
@@ -53,9 +53,9 @@
    <center>
       <VBox id="body" prefHeight="400.0" prefWidth="600.0" stylesheets="@style.css" BorderPane.alignment="CENTER">
          <children>
-            <Label alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="300.0" text="System Message">
+            <Label fx:id="systemMsg" alignment="BASELINE_CENTER" prefHeight="30.0" prefWidth="400.0" text="System Message">
                <VBox.margin>
-                  <Insets left="150.0" right="150.0" />
+                  <Insets left="100.0" right="100.0" />
                </VBox.margin>
             </Label>
             <VBox id="board" prefHeight="350.0" prefWidth="350.0" style="-fx-border-color: black;" stylesheets="@style.css">
@@ -68,23 +68,23 @@
                <children>
                   <HBox prefHeight="100.0" prefWidth="300.0">
                      <children>
-                        <Button fx:id="button1" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 0;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #dedede; -fx-border-color: white;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button3" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 0;" styleClass=".buttons" stylesheets="@style.css" />
+                        <Button fx:id="button1" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="grey_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button2" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="white_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button3" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="grey_buttons" stylesheets="@style.css" />
                      </children>
                   </HBox>
                   <HBox layoutX="16.0" layoutY="36.0" prefHeight="100.0" prefWidth="300.0">
                      <children>
-                        <Button fx:id="button4" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #dedede; -fx-border-color: white;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button5" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #dedede; -fx-border-color: white;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button6" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #dedede; -fx-border-color: white;" styleClass=".buttons" stylesheets="@style.css" />
+                        <Button fx:id="button4" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="white_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button5" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="grey_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button6" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="white_buttons" stylesheets="@style.css" />
                      </children>
                   </HBox>
                   <HBox layoutX="16.0" layoutY="136.0" prefHeight="100.0" prefWidth="300.0">
                      <children>
-                        <Button fx:id="button7" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 0;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button8" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #dedede; -fx-border-color: white;" styleClass=".buttons" stylesheets="@style.css" />
-                        <Button fx:id="button9" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: white; -fx-border-color: #ddd; -fx-border-radius: 0;" styleClass=".buttons" stylesheets="@style.css" />
+                        <Button fx:id="button7" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="grey_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button8" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="white_buttons" stylesheets="@style.css" />
+                        <Button fx:id="button9" layoutX="62.0" layoutY="10.0" mnemonicParsing="false" onAction="#onbuttonClicked" prefHeight="100.0" prefWidth="120.0" styleClass="grey_buttons" stylesheets="@style.css" />
                      </children>
                   </HBox>
                </children>

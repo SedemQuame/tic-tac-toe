@@ -8,4 +8,24 @@
 
 #board{}
 
-.buttons{}
+.grey_buttons{
+    -fx-background-color:  #dedede;
+    -fx-border-color: white;
+    -fx-border-radius: 0;
+}
+
+.white_buttons{
+    -fx-background-color:  white;
+    -fx-border-color: #dedede;
+    -fx-border-radius: 0;
+}
+
+.grey_buttons:hover{
+    background-color: white;
+    border: 1px solid #dedede;
+}
+
+.white_buttons:hover{
+    background-color:  #dedede;
+    border: 1px solid white;
+}
