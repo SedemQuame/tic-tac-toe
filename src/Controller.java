@@ -6,6 +6,7 @@ import javafx.scene.control.Label;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.stream.IntStream;
 
 public class Controller implements Initializable {
 //    Creating game board.
@@ -54,14 +55,19 @@ public class Controller implements Initializable {
     @FXML
     void onbuttonClicked(ActionEvent event) {
         //IF turn is = EVEN, then it's player X's time to play, else if turn is = ODD, then it's player O's time to play.
-        if (this.getTurn() % 2 == 0){
-            move(event, 'X', gameBoard);
-            systemMsg.setText("Player O's Turn To Play.");
-        }else{
-            move(event, 'O', gameBoard);
-            systemMsg.setText("Player X's Turn To Play.");
+        Button btn  = (Button) event.getSource();
+        if (btn.getText().equals("")){
+            if (this.getTurn() % 2 == 0){
+
+                move(event, 'X', gameBoard);
+                systemMsg.setText("Player O's Turn To Play.");
+                this.setTurn();
+            }else{
+                move(event, 'O', gameBoard);
+                systemMsg.setText("Player X's Turn To Play.");
+                this.setTurn();
+            }
         }
-        this.setTurn();
     }
 
     @Override
@@ -79,6 +85,7 @@ public class Controller implements Initializable {
         this.turn = this.turn + 1;
     }
 
+
     private void move(ActionEvent event, char move, char [][] gameBoard){
         Button btn  = (Button) event.getSource();
 
@@ -87,24 +94,25 @@ public class Controller implements Initializable {
         }
         else {systemMsg.setText("Player O's Turn To Play.\nInvalid Move.");}
 
-        if(getTurn() == 9) {
+        if(checkIfBoardIsFull()) {
             /*RESTART GAME.
-            * 1.Record Score.
-            * 3.Send congratulatory message.
-            * 2.Reset matrix game board and fxml game board.
-            * 3.*/
+            * 1.Record Draw.
+            * 2.Send message that game resulted in a draw.
+            * 3.Reset matrix game board and fxml game board.
+            * 4.*/
+//            Print Congratulatory Message.
+            printCongratulatoryMessage("draw");
 
-//            Initializing Game Board.
             initializeGameBoard(gameBoard);
 
+//            Clear Fxml Game Board.
+            clearGameBoard();
         }
-
     }
 
     private void writeMoveToGameBoard(Button btn, char move, char [][] gameBoard){
         btn.setText(String.valueOf(move));
         String buttonId = btn.getId();
-
         switch (buttonId){
             case ("button1"):
                 gameBoard[0][0] = move;
@@ -134,14 +142,13 @@ public class Controller implements Initializable {
                 gameBoard[2][2] = move;
                 break;
         }
-
         displayGameBoardMatrix(gameBoard);
-
         if (checkGameResult()){
             updateScore();
+            initializeGameBoard(gameBoard);
+            clearGameBoard();
             systemMsg.setText("Game over");
         }
-
     }
 
     private void initializeGameBoard(char [][] gameBoard) {
@@ -161,7 +168,6 @@ public class Controller implements Initializable {
 //                Iterating through the rows.
                 System.out.print(gameBoard[i][j] + " | ");
             }
-
             System.out.println();
         }
     }
@@ -222,8 +228,38 @@ public class Controller implements Initializable {
     private void updateScore(){
         playerXScore.setText(String.valueOf(numberOfTimesPlayerXWon));
         playerYScore.setText(String.valueOf(numberOfTimesPlayerYWon));
+    }
 
-//        reseting game.
-        initializeGameBoard(gameBoard);
+    private void clearGameBoard(){
+        button1.setText("");
+        button2.setText("");
+        button3.setText("");
+        button4.setText("");
+        button5.setText("");
+        button6.setText("");
+        button7.setText("");
+        button8.setText("");
+        button9.setText("");
+    }
+
+    private void printCongratulatoryMessage(String condition){
+        if (condition.equals("win")){
+            System.out.println("Congratulations you won. \uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C\uD83D\uDE4C");
+        }else if (condition.equals("draw")){
+            System.out.println("You drew, try again.");
+        }else{
+            System.out.println("You lost, try again.");
+        }
+    }
+
+    private boolean checkIfBoardIsFull(){
+        for (int i = 0; i < gameBoard.length; i++) {
+            for (int j = 0; j < gameBoard[0].length; j++) {
+                if (String.valueOf(gameBoard[i][j]).equals(" ")){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
